@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.Department" >
     <id column="dept_name" property="deptName" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <!--<sql id="Base_Column_List">
     dept_name
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">
@@ -17,7 +17,7 @@
     <include refid="Base_Column_List"/>
     from _department
     where dept_name = #{deptName,jdbcType="VARCHAR"}
-  </select>
+  </select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from _department
     where dept_name = #{deptName,jdbcType=VARCHAR}

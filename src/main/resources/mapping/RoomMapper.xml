@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     room_id, room_floor, room_type, room_price, room_status
   </sql>
-  <select id="SelectAll" resultMap="">
+  <select id="SelectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _room

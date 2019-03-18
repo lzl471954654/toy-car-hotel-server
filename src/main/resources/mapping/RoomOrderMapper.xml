@@ -12,7 +12,7 @@
   <sql id="Base_Column_List" >
     order_id, start, end, user_account, room_id, order_price
   </sql>
-  <select id="SelectAll" resultMap="">
+  <select id="SelectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _room_order

@@ -10,7 +10,7 @@
   <sql id="Base_Column_List" >
     order_id, order_type, income_price, income_date
   </sql>
-  <select id="SelectAll" resultMap="">
+  <select id="SelectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _income
