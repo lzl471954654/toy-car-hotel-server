@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.Staff" >
+    <id column="staff_account" property="staffAccount" jdbcType="VARCHAR" />
+    <result column="staff_name" property="staffName" jdbcType="VARCHAR" />
+    <result column="staff_phone" property="staffPhone" jdbcType="VARCHAR" />
+    <result column="staff_permission" property="staffPermission" jdbcType="INTEGER" />
+    <result column="staff_dept" property="staffDept" jdbcType="VARCHAR" />
+    <result column="staff_pass" property="staffPass" jdbcType="VARCHAR" />
+    <result column="staff_salary" property="staffSalary" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    staff_account, staff_name, staff_phone, staff_permission, staff_dept, staff_pass, 
+    staff_salary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from _staff
+    where staff_account = #{staffAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from _staff
+    where staff_account = #{staffAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.Staff" >
+    insert into _staff (staff_account, staff_name, staff_phone, 
+      staff_permission, staff_dept, staff_pass, 
+      staff_salary)
+    values (#{staffAccount,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{staffPhone,jdbcType=VARCHAR}, 
+      #{staffPermission,jdbcType=INTEGER}, #{staffDept,jdbcType=VARCHAR}, #{staffPass,jdbcType=VARCHAR}, 
+      #{staffSalary,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.Staff" >
+    insert into _staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffAccount != null" >
+        staff_account,
+      </if>
+      <if test="staffName != null" >
+        staff_name,
+      </if>
+      <if test="staffPhone != null" >
+        staff_phone,
+      </if>
+      <if test="staffPermission != null" >
+        staff_permission,
+      </if>
+      <if test="staffDept != null" >
+        staff_dept,
+      </if>
+      <if test="staffPass != null" >
+        staff_pass,
+      </if>
+      <if test="staffSalary != null" >
+        staff_salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffAccount != null" >
+        #{staffAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPhone != null" >
+        #{staffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPermission != null" >
+        #{staffPermission,jdbcType=INTEGER},
+      </if>
+      <if test="staffDept != null" >
+        #{staffDept,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPass != null" >
+        #{staffPass,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSalary != null" >
+        #{staffSalary,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.Staff" >
+    update _staff
+    <set >
+      <if test="staffName != null" >
+        staff_name = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPhone != null" >
+        staff_phone = #{staffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPermission != null" >
+        staff_permission = #{staffPermission,jdbcType=INTEGER},
+      </if>
+      <if test="staffDept != null" >
+        staff_dept = #{staffDept,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPass != null" >
+        staff_pass = #{staffPass,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSalary != null" >
+        staff_salary = #{staffSalary,jdbcType=INTEGER},
+      </if>
+    </set>
+    where staff_account = #{staffAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.Staff" >
+    update _staff
+    set staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_phone = #{staffPhone,jdbcType=VARCHAR},
+      staff_permission = #{staffPermission,jdbcType=INTEGER},
+      staff_dept = #{staffDept,jdbcType=VARCHAR},
+      staff_pass = #{staffPass,jdbcType=VARCHAR},
+      staff_salary = #{staffSalary,jdbcType=INTEGER}
+    where staff_account = #{staffAccount,jdbcType=VARCHAR}
+  </update>
+</mapper>

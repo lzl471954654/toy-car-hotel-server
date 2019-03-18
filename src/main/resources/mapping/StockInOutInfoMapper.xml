@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.StockInOutInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.StockInOutInfo" >
+    <id column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <id column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="stock_count" property="stockCount" jdbcType="INTEGER" />
+    <result column="stock_type" property="stockType" jdbcType="INTEGER" />
+    <result column="stock_date" property="stockDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stock_id, stock_name, stock_count, stock_type, stock_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.toycar.hotelserver.pojo.StockInOutInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from _stock_in_out_info
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+      and stock_name = #{stockName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.StockInOutInfoKey" >
+    delete from _stock_in_out_info
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+      and stock_name = #{stockName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.StockInOutInfo" >
+    insert into _stock_in_out_info (stock_id, stock_name, stock_count, 
+      stock_type, stock_date)
+    values (#{stockId,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, #{stockCount,jdbcType=INTEGER}, 
+      #{stockType,jdbcType=INTEGER}, #{stockDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.StockInOutInfo" >
+    insert into _stock_in_out_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="stockCount != null" >
+        stock_count,
+      </if>
+      <if test="stockType != null" >
+        stock_type,
+      </if>
+      <if test="stockDate != null" >
+        stock_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null" >
+        #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="stockType != null" >
+        #{stockType,jdbcType=INTEGER},
+      </if>
+      <if test="stockDate != null" >
+        #{stockDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.StockInOutInfo" >
+    update _stock_in_out_info
+    <set >
+      <if test="stockCount != null" >
+        stock_count = #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="stockType != null" >
+        stock_type = #{stockType,jdbcType=INTEGER},
+      </if>
+      <if test="stockDate != null" >
+        stock_date = #{stockDate,jdbcType=DATE},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+      and stock_name = #{stockName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.StockInOutInfo" >
+    update _stock_in_out_info
+    set stock_count = #{stockCount,jdbcType=INTEGER},
+      stock_type = #{stockType,jdbcType=INTEGER},
+      stock_date = #{stockDate,jdbcType=DATE}
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+      and stock_name = #{stockName,jdbcType=VARCHAR}
+  </update>
+</mapper>

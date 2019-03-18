@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.Department" >
+    <id column="dept_name" property="deptName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from _department
+    where dept_name = #{deptName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.Department" >
+    insert into _department (dept_name)
+    values (#{deptName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.Department" >
+    insert into _department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

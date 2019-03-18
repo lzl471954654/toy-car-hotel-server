@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.Permission" >
+    <id column="permission_type" property="permissionType" jdbcType="INTEGER" />
+    <result column="permission_desc" property="permissionDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    permission_type, permission_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from _permission
+    where permission_type = #{permissionType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from _permission
+    where permission_type = #{permissionType,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.Permission" >
+    insert into _permission (permission_type, permission_desc)
+    values (#{permissionType,jdbcType=INTEGER}, #{permissionDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.Permission" >
+    insert into _permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
+      <if test="permissionDesc != null" >
+        permission_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="permissionDesc != null" >
+        #{permissionDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.Permission" >
+    update _permission
+    <set >
+      <if test="permissionDesc != null" >
+        permission_desc = #{permissionDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where permission_type = #{permissionType,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.Permission" >
+    update _permission
+    set permission_desc = #{permissionDesc,jdbcType=VARCHAR}
+    where permission_type = #{permissionType,jdbcType=INTEGER}
+  </update>
+</mapper>

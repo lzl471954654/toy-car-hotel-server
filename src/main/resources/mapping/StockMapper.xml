@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.StockMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.Stock" >
+    <id column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="stock_count" property="stockCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stock_name, stock_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from _stock
+    where stock_name = #{stockName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from _stock
+    where stock_name = #{stockName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.Stock" >
+    insert into _stock (stock_name, stock_count)
+    values (#{stockName,jdbcType=VARCHAR}, #{stockCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.Stock" >
+    insert into _stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="stockCount != null" >
+        stock_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null" >
+        #{stockCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.Stock" >
+    update _stock
+    <set >
+      <if test="stockCount != null" >
+        stock_count = #{stockCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stock_name = #{stockName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.Stock" >
+    update _stock
+    set stock_count = #{stockCount,jdbcType=INTEGER}
+    where stock_name = #{stockName,jdbcType=VARCHAR}
+  </update>
+</mapper>

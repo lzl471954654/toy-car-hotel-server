@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.ServiceOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.ServiceOrder" >
+    <id column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="service_type" property="serviceType" jdbcType="INTEGER" />
+    <result column="service_info" property="serviceInfo" jdbcType="VARCHAR" />
+    <result column="service_price" property="servicePrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_id, user_account, room_id, service_type, service_info, service_price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from _service_order
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from _service_order
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.ServiceOrder" >
+    insert into _service_order (service_id, user_account, room_id, 
+      service_type, service_info, service_price
+      )
+    values (#{serviceId,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+      #{serviceType,jdbcType=INTEGER}, #{serviceInfo,jdbcType=VARCHAR}, #{servicePrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.ServiceOrder" >
+    insert into _service_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="serviceInfo != null" >
+        service_info,
+      </if>
+      <if test="servicePrice != null" >
+        service_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceInfo != null" >
+        #{serviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null" >
+        #{servicePrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.ServiceOrder" >
+    update _service_order
+    <set >
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceInfo != null" >
+        service_info = #{serviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null" >
+        service_price = #{servicePrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.ServiceOrder" >
+    update _service_order
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=INTEGER},
+      service_info = #{serviceInfo,jdbcType=VARCHAR},
+      service_price = #{servicePrice,jdbcType=DECIMAL}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

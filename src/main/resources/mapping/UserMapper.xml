@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.User" >
+    <id column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_pass" property="userPass" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_vip" property="userVip" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_account, user_nickname, user_pass, user_phone, user_vip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from _user
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from _user
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.User" >
+    insert into _user (user_account, user_nickname, user_pass, 
+      user_phone, user_vip)
+    values (#{userAccount,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, #{userPass,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{userVip,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.User" >
+    insert into _user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userPass != null" >
+        user_pass,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userVip != null" >
+        user_vip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPass != null" >
+        #{userPass,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userVip != null" >
+        #{userVip,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.User" >
+    update _user
+    <set >
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPass != null" >
+        user_pass = #{userPass,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userVip != null" >
+        user_vip = #{userVip,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.User" >
+    update _user
+    set user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_pass = #{userPass,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_vip = #{userVip,jdbcType=INTEGER}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+</mapper>

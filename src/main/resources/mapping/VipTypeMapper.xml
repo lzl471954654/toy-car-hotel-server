@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.toycar.hotelserver.mapper.VipTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.toycar.hotelserver.pojo.VipType" >
+    <id column="vip_type" property="vipType" jdbcType="INTEGER" />
+    <result column="vip_desc" property="vipDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    vip_type, vip_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from _vip_type
+    where vip_type = #{vipType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from _vip_type
+    where vip_type = #{vipType,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.toycar.hotelserver.pojo.VipType" >
+    insert into _vip_type (vip_type, vip_desc)
+    values (#{vipType,jdbcType=INTEGER}, #{vipDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toycar.hotelserver.pojo.VipType" >
+    insert into _vip_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vipType != null" >
+        vip_type,
+      </if>
+      <if test="vipDesc != null" >
+        vip_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vipType != null" >
+        #{vipType,jdbcType=INTEGER},
+      </if>
+      <if test="vipDesc != null" >
+        #{vipDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toycar.hotelserver.pojo.VipType" >
+    update _vip_type
+    <set >
+      <if test="vipDesc != null" >
+        vip_desc = #{vipDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vip_type = #{vipType,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toycar.hotelserver.pojo.VipType" >
+    update _vip_type
+    set vip_desc = #{vipDesc,jdbcType=VARCHAR}
+    where vip_type = #{vipType,jdbcType=INTEGER}
+  </update>
+</mapper>
