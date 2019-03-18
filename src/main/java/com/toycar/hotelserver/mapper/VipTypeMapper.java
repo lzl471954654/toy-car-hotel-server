@@ -2,6 +2,8 @@ package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.VipType;
 
+import java.util.List;
+
 public interface VipTypeMapper {
     int deleteByPrimaryKey(Integer vipType);
 
@@ -10,6 +12,8 @@ public interface VipTypeMapper {
     int insertSelective(VipType record);
 
     VipType selectByPrimaryKey(Integer vipType);
+
+    List<VipType> selectAll();
 
     int updateByPrimaryKeySelective(VipType record);
 

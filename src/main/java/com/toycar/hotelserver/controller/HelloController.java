@@ -1,6 +1,8 @@
 package com.toycar.hotelserver.controller;
 
+import com.toycar.hotelserver.mapper.StaffMapper;
 import com.toycar.hotelserver.mapper.StockMapper;
+import com.toycar.hotelserver.pojo.Staff;
 import com.toycar.hotelserver.pojo.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,17 @@ public class HelloController {
 
     @ResponseBody
     @RequestMapping("/hello")
-    public Stock findAll(){
-        return stockMapper.selectByPrimaryKey("毛巾");
+    public List<Stock> findAll(){
+        List<Stock> list = stockMapper.selectAll();
+        return list;
     }
+
+    @ResponseBody
+    @RequestMapping("/hello2")
+    public Stock findOne(){
+        Stock stock = stockMapper.selectByPrimaryKey("中性笔");
+        System.out.println(stock);
+        return stock;
+    }
+
 }

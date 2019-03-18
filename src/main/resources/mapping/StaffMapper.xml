@@ -14,6 +14,11 @@
     staff_account, staff_name, staff_phone, staff_permission, staff_dept, staff_pass, 
     staff_salary
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from _staff
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

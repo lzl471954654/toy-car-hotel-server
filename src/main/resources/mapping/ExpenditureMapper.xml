@@ -10,6 +10,11 @@
   <sql id="Base_Column_List" >
     exp_id, exp_date, exp_price, exp_type
   </sql>
+  <select id="SelectAll" resultMap="">
+    select
+    <include refid="Base_Column_List" />
+    from _expenditure
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

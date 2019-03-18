@@ -8,6 +8,11 @@
   <sql id="Base_Column_List" >
     order_type, order_desc
   </sql>
+  <select id="SelectAll" resultMap="">
+    select
+    <include refid="Base_Column_List" />
+    from _order_type
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -2,6 +2,8 @@ package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.RoomOrder;
 
+import java.util.List;
+
 public interface RoomOrderMapper {
     int deleteByPrimaryKey(String orderId);
 
@@ -10,6 +12,8 @@ public interface RoomOrderMapper {
     int insertSelective(RoomOrder record);
 
     RoomOrder selectByPrimaryKey(String orderId);
+
+    List<RoomOrder> selectAll();
 
     int updateByPrimaryKeySelective(RoomOrder record);
 

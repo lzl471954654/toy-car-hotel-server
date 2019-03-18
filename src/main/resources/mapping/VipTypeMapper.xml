@@ -8,6 +8,11 @@
   <sql id="Base_Column_List" >
     vip_type, vip_desc
   </sql>
+  <select id="SelectAll" resultMap="">
+    select
+    <include refid="Base_Column_List" />
+    from _vip_type
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

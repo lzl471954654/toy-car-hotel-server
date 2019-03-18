@@ -11,6 +11,11 @@
   <sql id="Base_Column_List" >
     stock_id, stock_name, stock_count, stock_type, stock_date
   </sql>
+  <select id="SelectAll" resultMap="">
+    select
+    <include refid="Base_Column_List" />
+    from _stock_in_out_info
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.toycar.hotelserver.pojo.StockInOutInfoKey" >
     select 
     <include refid="Base_Column_List" />

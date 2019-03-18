@@ -2,6 +2,8 @@ package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.Comments;
 
+import java.util.List;
+
 public interface CommentsMapper {
     int deleteByPrimaryKey(String orderId);
 
@@ -11,7 +13,9 @@ public interface CommentsMapper {
 
     Comments selectByPrimaryKey(String orderId);
 
-    int updateByPrimaryKeySelective(Comments record);
+    List<Comments> selectAll();
 
-    int updateByPrimaryKeyWithBLOBs(Comments record);
+    int updateByPrimaryKeySelective(Comments record);  //根据订单号修改评论
+
+    int updateByPrimaryKeyWithBLOBs(Comments record);  //根据订单号修改评论
 }

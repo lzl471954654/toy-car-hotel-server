@@ -12,6 +12,11 @@
   <sql id="Base_Column_List" >
     service_id, user_account, room_id, service_type, service_info, service_price
   </sql>
+  <select id="SelectAll" resultMap="">
+    select
+    <include refid="Base_Column_List" />
+    from _service_order
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

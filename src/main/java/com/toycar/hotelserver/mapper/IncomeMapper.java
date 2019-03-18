@@ -2,6 +2,8 @@ package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.Income;
 
+import java.util.List;
+
 public interface IncomeMapper {
     int deleteByPrimaryKey(String orderId);
 
@@ -10,6 +12,8 @@ public interface IncomeMapper {
     int insertSelective(Income record);
 
     Income selectByPrimaryKey(String orderId);
+
+    List<Income> selectAll();
 
     int updateByPrimaryKeySelective(Income record);
 

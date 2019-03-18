@@ -2,6 +2,8 @@ package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.Permission;
 
+import java.util.List;
+
 public interface PermissionMapper {
     int deleteByPrimaryKey(Integer permissionType);
 
@@ -10,6 +12,8 @@ public interface PermissionMapper {
     int insertSelective(Permission record);
 
     Permission selectByPrimaryKey(Integer permissionType);
+
+    List<Permission> selectAll();
 
     int updateByPrimaryKeySelective(Permission record);
 
