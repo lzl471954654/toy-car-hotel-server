@@ -1,6 +1,7 @@
 package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.Department;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
