@@ -13,6 +13,8 @@ public interface RoomOrderMapper {
 
     RoomOrder selectByPrimaryKey(String orderId);
 
+    RoomOrder selectByRoomId(String roomId);
+
     List<RoomOrder> selectAll();
 
     int updateByPrimaryKeySelective(RoomOrder record);

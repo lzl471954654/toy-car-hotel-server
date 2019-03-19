@@ -22,6 +22,24 @@
     from _room
     where room_id = #{roomId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+      from _room
+      where room_type = #{roomType,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from _room
+    where room_status = #{roomStatus,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrice" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
+    select
+    <include refid="Base_Column_List"/>
+    from _room
+    where room_price = #{roomPrice,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from _room
     where room_id = #{roomId,jdbcType=VARCHAR}
