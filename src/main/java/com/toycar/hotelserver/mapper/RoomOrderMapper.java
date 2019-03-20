@@ -5,6 +5,9 @@ import com.toycar.hotelserver.pojo.RoomOrder;
 import java.util.List;
 
 public interface RoomOrderMapper {
+
+    int checkStartTimeAndEndTimeContainsOrder(RoomOrder record);
+
     int deleteByPrimaryKey(String orderId);
 
     int insert(RoomOrder record);

@@ -49,17 +49,21 @@ public class RoomService {
         return n;
     }
 
-    public List<Room> findRoomByParameter(String parameter,String parameterName){
-        List<Room> roomList;
-        if (parameterName.equals("类型")){
+    public List<Room> findRoomByParameter(String parameter,String parameterName) {
+        List<Room> roomList = null;
+        if (parameterName.equals("类型")) {
             Integer roomType = Integer.valueOf(parameter);
             roomList = roomMapper.selectByType(roomType);
             return roomList;
-        }else  if (parameterName.equals("状态")){
+        } else if (parameterName.equals("状态")) {
             Integer roomStatus = Integer.valueOf(parameter);
             roomList = roomMapper.selectByStatus(roomStatus);
             return roomList;
-    }else if (parameterName.equals("价格")){
-            BigDecimal roomPrice = BigDecimal.
+        } else if (parameterName.equals("价格")) {
+            /*BigDecimal roomPrice = BigDecimal.*/
             return roomList;
+        }
+
+        return null;
+    }
 }
