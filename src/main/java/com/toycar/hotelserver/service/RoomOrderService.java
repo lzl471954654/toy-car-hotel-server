@@ -5,7 +5,6 @@ import com.toycar.hotelserver.manager.RoomManager;
 import com.toycar.hotelserver.mapper.RoomOrderMapper;
 import com.toycar.hotelserver.pojo.RoomOrder;
 import com.toycar.hotelserver.util.JSONUtil;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,10 @@ public class RoomOrderService {
     private RoomOrderMapper mapper;
 
     public int updateOrder(RoomOrder roomOrder){
-
+        int code;
+        String orderId = roomOrder.getOrderId();
+        String newRoomId = roomOrder.getRoomId();
+        
         return 0;
     }
 

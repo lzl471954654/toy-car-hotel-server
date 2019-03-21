@@ -17,7 +17,7 @@ public class TokenManager {
         return token.getToken();
     }
 
-    private static boolean checkTokenValid(String token){
+    public static boolean checkTokenValid(String token){
         Token t = tokenMap.get(token);
         if (t == null){
             return false;
