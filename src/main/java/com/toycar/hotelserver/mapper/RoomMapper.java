@@ -1,8 +1,10 @@
 package com.toycar.hotelserver.mapper;
 
 import com.toycar.hotelserver.pojo.Room;
+import com.toycar.hotelserver.pojo.RoomOrder;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public interface RoomMapper {
@@ -25,4 +27,5 @@ public interface RoomMapper {
     List<Room> selectByStatus(Integer roomStatus);
 
     List<Room> selectByPrice(BigDecimal roomPrice);
+
 }
