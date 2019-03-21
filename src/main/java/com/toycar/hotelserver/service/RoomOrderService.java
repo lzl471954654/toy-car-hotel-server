@@ -27,7 +27,7 @@ public class RoomOrderService {
     public String addRoomOrder(RoomOrder roomOrder){
         int code;
         if (RoomManager.lockRoom(roomOrder.getRoomId())){
-            int count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder);
+            int count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
             if (count == 0){
                 roomOrder.setOrderId(IDManager.generateRoomOrderId(roomOrder));
                 code = mapper.insert(roomOrder);
