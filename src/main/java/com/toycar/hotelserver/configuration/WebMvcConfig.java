@@ -12,7 +12,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //注册拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String[] excludePath = {"/Login","/register"};
+        String[] excludePath = {"/Login","/register","/hello"};
         registry.addInterceptor(new LoginIntercept()).addPathPatterns("/**").excludePathPatterns(excludePath);
     }
 }
