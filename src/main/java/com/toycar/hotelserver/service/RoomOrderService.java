@@ -32,19 +32,23 @@ public class RoomOrderService {
         String roomId = roomOrder.getRoomId();
         int count;
         if (RoomManager.lockRoom(roomId)){
-            count = mapper.deleteByPrimaryKey(orderId);
-            if (count == 1){
-                count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
-                if (count == 0){
-                    code = mapper.insert(roomOrder);
+            try{
+                count = mapper.deleteByPrimaryKey(orderId);
+                if (count == 1){
+                    count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
+                    if (count == 0){
+                        code = mapper.insert(roomOrder);
+                    }else {
+                        // 订单日期冲突
+                        code = -1;
+                        TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+                    }
                 }else {
-                    // 订单日期冲突
-                    code = -1;
-                    TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+                    //订单不存在
+                    code = -2;
                 }
-            }else {
-                //订单不存在
-                code = -2;
+            }finally {
+                RoomManager.lockRoom(roomId);
             }
         }else {
             code = -3;
@@ -60,15 +64,18 @@ public class RoomOrderService {
     public String addRoomOrder(RoomOrder roomOrder){
         int code;
         if (RoomManager.lockRoom(roomOrder.getRoomId())){
-            int count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
-            if (count == 0){
-                roomOrder.setOrderId(IDManager.generateRoomOrderId(roomOrder));
-                code = mapper.insert(roomOrder);
-            }else {
-                //代表这个时间区间内 这个房间有部分时间被占用
-                code = -1;
+            try{
+                int count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
+                if (count == 0){
+                    roomOrder.setOrderId(IDManager.generateRoomOrderId(roomOrder));
+                    code = mapper.insert(roomOrder);
+                }else {
+                    //代表这个时间区间内 这个房间有部分时间被占用
+                    code = -1;
+                }
+            }finally {
+                RoomManager.releaseRoom(roomOrder.getRoomId());
             }
-            RoomManager.releaseRoom(roomOrder.getRoomId());
         }else {
             //有其他人操作
             code = -3;
