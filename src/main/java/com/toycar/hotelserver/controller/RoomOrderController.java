@@ -4,16 +4,35 @@ import com.toycar.hotelserver.pojo.RoomOrder;
 import com.toycar.hotelserver.service.RoomOrderService;
 import com.toycar.hotelserver.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class RoomOrderController {
 
     @Autowired
     private RoomOrderService roomOrderService;
+
+    @RequestMapping("/roomOrder/findAll")
+    public String findAll(){
+        List<RoomOrder> list = roomOrderService.findAll();
+        return JSONUtil
+                .generateJsonObjectWithCodeAndObj(list.size()>0?1:0,list)
+                .toString();
+    }
+
+    @RequestMapping("/roomOrder/findById")
+    public String findById(RoomOrder roomOrder){
+        RoomOrder order = roomOrderService.findRoomOrderById(roomOrder);
+        return JSONUtil
+                .generateJsonObjectWithCodeAndObj(order == null ? 0 : 1,order)
+                .toString();
+    }
 
     @RequestMapping("/roomOrder/add")
     public String addOrder(RoomOrder roomOrder){
@@ -28,9 +47,10 @@ public class RoomOrderController {
     }
 
     @RequestMapping("/roomOrder/update")
+    @Transactional
     public String updateOrder(RoomOrder roomOrder){
-
-        return null;
+        int code = roomOrderService.updateOrder(roomOrder);
+        return JSONUtil.generateJsonObjectWithCodeAndObj(code,roomOrder).toString();
     }
 
 

@@ -7,6 +7,9 @@ import com.toycar.hotelserver.pojo.RoomOrder;
 import com.toycar.hotelserver.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.util.List;
 
 @Service
 public class RoomOrderService {
@@ -14,12 +17,40 @@ public class RoomOrderService {
     @Autowired(required = false)
     private RoomOrderMapper mapper;
 
+    public RoomOrder findRoomOrderById(RoomOrder roomOrder){
+        return mapper.selectByPrimaryKey(roomOrder.getOrderId());
+    }
+
+    public List<RoomOrder> findAll(){
+        return mapper.selectAll();
+    }
+
     public int updateOrder(RoomOrder roomOrder){
+        Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
         int code;
         String orderId = roomOrder.getOrderId();
-        String newRoomId = roomOrder.getRoomId();
-        
-        return 0;
+        String roomId = roomOrder.getRoomId();
+        int count;
+        if (RoomManager.lockRoom(roomId)){
+            count = mapper.deleteByPrimaryKey(orderId);
+            if (count == 1){
+                count = mapper.checkStartTimeAndEndTimeContainsOrder(roomOrder).size();
+                if (count == 0){
+                    code = mapper.insert(roomOrder);
+                }else {
+                    // 订单日期冲突
+                    code = -1;
+                    TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+                }
+            }else {
+                //订单不存在
+                code = -2;
+            }
+        }else {
+            code = -3;
+        }
+        TransactionAspectSupport.currentTransactionStatus().releaseSavepoint(savePoint);
+        return code;
     }
 
     public int deleteRoomOrderByOrderId(RoomOrder roomOrder){
@@ -39,7 +70,8 @@ public class RoomOrderService {
             }
             RoomManager.releaseRoom(roomOrder.getRoomId());
         }else {
-            code = -2;
+            //有其他人操作
+            code = -3;
         }
 
         return JSONUtil.generateJsonObjectWithCodeAndObj(code,roomOrder).toString();
