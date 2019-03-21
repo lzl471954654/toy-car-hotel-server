@@ -22,7 +22,7 @@
     or
     start <![CDATA[ <= ]]> #{start,jdbcType=DATE} and end <![CDATA[ >= ]]> #{end,jdbcType=DATE}
   </select>
-  <select id="SelectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _room_order
