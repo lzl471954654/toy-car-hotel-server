@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoomOrderMapper {
 
-    int checkStartTimeAndEndTimeContainsOrder(RoomOrder record);
+    List<RoomOrder> checkStartTimeAndEndTimeContainsOrder(RoomOrder record);
 
     int deleteByPrimaryKey(String orderId);
 
