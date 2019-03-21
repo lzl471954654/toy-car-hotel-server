@@ -2,6 +2,7 @@ package com.toycar.hotelserver.service;
 
 
 import com.google.gson.JsonObject;
+import com.toycar.hotelserver.manager.RoomManager;
 import com.toycar.hotelserver.mapper.RoomMapper;
 import com.toycar.hotelserver.mapper.RoomOrderMapper;
 import com.toycar.hotelserver.pojo.Room;
@@ -19,19 +20,31 @@ public class RoomService {
     @Autowired(required = false)
     private RoomOrderMapper roomOrderMapper;
 
-    public String addRoom(Room room){
+    public String addRoom(Room room) {
         int n = roomMapper.insertSelective(room);
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n,"");
+        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n, "");
         return object.toString();
     }
 
-    public String deleteRoom(String roomId){
-        RoomOrder roomOrder = roomOrderMapper.selectByRoomId(roomId);
-        int n = 0;
-        if (roomOrder != null) {
-            n = roomMapper.deleteByPrimaryKey(roomId);
+    public String deleteRoom(Room room) {
+        int code = 1;
+        if (RoomManager.lockRoom(room.getRoomId())) {
+            try {
+                RoomOrder roomOrder = roomOrderMapper.selectByRoomId(room.getRoomId());
+
+                if (roomOrder == null) {
+                   int n = roomMapper.deleteByPrimaryKey(room.getRoomId());
+                   if (n == 0){
+                       code = -1;
+                   }
+                }
+            } finally {
+                RoomManager.releaseRoom(room.getRoomId());
+            }
+        }else {
+            code = -3;
         }
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n,"");
+        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(code, "");
         return object.toString();
     }
 
@@ -46,12 +59,23 @@ public class RoomService {
     }
 */
 
-    public String updateRoom(Room room){
-        int n = roomMapper.updateByPrimaryKey(room);
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n,"");
+    public String updateRoom(Room room) {
+        int code = 1;
+        if (RoomManager.lockRoom(room.getRoomId())) {
+            try {
+                int n = roomMapper.updateByPrimaryKey(room);
+                if (n == 0) {
+                    code = -1;
+                }
+            } finally {
+                RoomManager.releaseRoom(room.getRoomId());
+            }
+        }else {
+            code = -3;
+        }
+        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(code, "");
         return object.toString();
     }
-
    /* public String findRoomByParameter(String parameter,Integer type) {
         List<Room> roomList = null;
         roomList = roomMapper.selectByType(type);
@@ -74,17 +98,17 @@ public class RoomService {
         return object.toString();
     }*/
 
-    public String findRoomByDate(RoomOrder roomOrder){
-        List<RoomOrder> roomOrderList = roomOrderMapper.checkStartTimeAndEndTimeContainsOrder(roomOrder);
-        List<Room> roomList = roomMapper.selectAll();
-        for (RoomOrder order : roomOrderList) {
-            for (int i = 0; i < roomList.size(); i++) {
-                if (roomList.get(i).getRoomId().equals(order.getRoomId())){
-                    roomList.remove(i);
+        public String findRoomByDate (RoomOrder roomOrder){
+            List<RoomOrder> roomOrderList = roomOrderMapper.checkStartTimeAndEndTimeContainsOrder(roomOrder);
+            List<Room> roomList = roomMapper.selectAll();
+            for (RoomOrder order : roomOrderList) {
+                for (int i = 0; i < roomList.size(); i++) {
+                    if (roomList.get(i).getRoomId().equals(order.getRoomId())) {
+                        roomList.remove(i);
+                    }
                 }
             }
+            JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(1, roomList);
+            return object.toString();
         }
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(1,roomList);
-        return object.toString();
-    }
 }

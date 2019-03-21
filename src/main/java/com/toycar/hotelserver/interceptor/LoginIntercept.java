@@ -1,4 +1,4 @@
-package com.toycar.hotelserver.intercept;
+package com.toycar.hotelserver.interceptor;
 
 import com.toycar.hotelserver.bean.Token;
 import com.toycar.hotelserver.manager.TokenManager;
@@ -25,6 +25,5 @@ public class LoginIntercept implements HandlerInterceptor {
     //在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
     }
 }

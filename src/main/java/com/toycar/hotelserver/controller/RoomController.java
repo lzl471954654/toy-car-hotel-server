@@ -6,8 +6,9 @@ import com.toycar.hotelserver.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class RoomController {
     @Autowired(required = false)
     RoomService roomService;
@@ -19,7 +20,7 @@ public class RoomController {
 
     @RequestMapping("/room/delete")
     public String deleteRoom(Room room){
-        return  roomService.deleteRoom(room.getRoomId());
+        return  roomService.deleteRoom(room);
     }
 
     @RequestMapping("/room/update")
@@ -29,6 +30,7 @@ public class RoomController {
 
     @RequestMapping("/room/findByDate")
     public String findRoomByDate(RoomOrder roomOrder){
+        System.out.println(roomOrder.getOrderId());
         return roomService.findRoomByDate(roomOrder);
     }
 }

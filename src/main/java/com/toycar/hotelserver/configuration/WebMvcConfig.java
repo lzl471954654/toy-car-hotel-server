@@ -1,6 +1,6 @@
-package com.toycar.hotelserver;
+package com.toycar.hotelserver.configuration;
 
-import com.toycar.hotelserver.intercept.LoginIntercept;
+import com.toycar.hotelserver.interceptor.LoginIntercept;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
