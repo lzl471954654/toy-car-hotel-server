@@ -9,7 +9,6 @@ import com.toycar.hotelserver.pojo.ServiceOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Date;
 import java.util.List;
@@ -36,7 +35,7 @@ public class ServiceOrderService {
             income.setIncomeDate(new Date(System.currentTimeMillis()));
             income.setIncomePrice(serviceOrder.getServicePrice());
             income.setOrderId(serviceOrder.getServiceId());
-            income.setOrderType(1);
+            income.setOrderType(2);
             count = incomeMapper.insert(income);
             if (count != 1)
                 throw new IllegalStateException("insert service order success , but insert income failed.\tIncome:"+income);

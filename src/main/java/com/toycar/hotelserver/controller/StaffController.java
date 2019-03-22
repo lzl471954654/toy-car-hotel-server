@@ -15,30 +15,31 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
 
-    @RequestMapping("/staff/findAll")
+    @RequestMapping("/hotel/staff/findAll")
     public String findAll(){
         List<Staff> list = staffService.findAll();
         return JSONUtil.generateJsonObjectWithCodeAndObj(list.size() > 0 ? 1 : 0 , list).toString();
     }
 
-    @RequestMapping("/staff/findByStaffAccount")
+    @RequestMapping("/hotel/staff/findByStaffAccount")
     public String findByStaffAccount(Staff staff){
         Staff m = staffService.findByStaffAccount(staff);
         return JSONUtil.generateJsonObjectWithCodeAndObj(m == null ? 0 : 1,m).toString();
     }
 
-    @RequestMapping("/staff/delete")
+    @RequestMapping("/hotel/staff/delete")
     public String deleteStaff(Staff staff){
         int code = staffService.deleteStaff(staff);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code,null).toString();
     }
 
-    @RequestMapping("/staff/update")
+    @RequestMapping("/hotel/staff/update")
     public String updateStaff(Staff staff){
         int code = staffService.updateStaff(staff);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, code == 1 ? staff : null).toString();
     }
 
+    @RequestMapping("/hotel/staff/add")
     public String addStaff(Staff staff){
         int code = staffService.addStaff(staff);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, code == 1 ? staff : null).toString();

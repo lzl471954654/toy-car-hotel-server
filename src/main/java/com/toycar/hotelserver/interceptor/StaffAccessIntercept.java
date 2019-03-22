@@ -1,6 +1,7 @@
 package com.toycar.hotelserver.interceptor;
 
 import com.toycar.hotelserver.bean.Token;
+import com.toycar.hotelserver.exception.AccessDenyException;
 import com.toycar.hotelserver.manager.TokenManager;
 import com.toycar.hotelserver.pojo.User;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -9,11 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginIntercept implements HandlerInterceptor {
+public class StaffAccessIntercept implements HandlerInterceptor {
     //在请求处理之前进行调用（Controller方法调用之前
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        return TokenManager.checkTokenValid(request.getHeader("token"));
+        String token = request.getParameter("token");
+        if (token == null || !TokenManager.checkStaffTokenValid(token)){
+            throw new AccessDenyException("Permission Denied");
+        }
+        return true;
     }
 
     //请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）

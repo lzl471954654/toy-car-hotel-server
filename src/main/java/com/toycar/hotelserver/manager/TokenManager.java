@@ -2,6 +2,7 @@ package com.toycar.hotelserver.manager;
 
 
 import com.toycar.hotelserver.bean.Token;
+import com.toycar.hotelserver.pojo.Staff;
 import com.toycar.hotelserver.pojo.User;
 
 import java.util.Map;
@@ -17,12 +18,31 @@ public class TokenManager {
         return token.getToken();
     }
 
-    public static boolean checkTokenValid(String token){
+    public static String staffLoginGetToken(Staff staff){
+        Token token = new Token(staff);
+        tokenMap.put(token.getToken(),token);
+        return token.getToken();
+    }
+
+    public static boolean checkUserTokenValid(String token){
         Token t = tokenMap.get(token);
         if (t == null){
             return false;
         }
-        if (t.isValid(token)){
+        if (t.isValid(token) && !t.isStaff()){
+            return true;
+        }else {
+            tokenMap.remove(token);
+            return false;
+        }
+    }
+
+    public static boolean checkStaffTokenValid(String token){
+        Token t = tokenMap.get(token);
+        if (t == null){
+            return false;
+        }
+        if (t.isValid(token) && t.isStaff()){
             return true;
         }else {
             tokenMap.remove(token);

@@ -18,7 +18,7 @@ public class RoomOrderController {
     @Autowired
     private RoomOrderService roomOrderService;
 
-    @RequestMapping("/roomOrder/findAll")
+    @RequestMapping("/hotel/staff/roomOrder/findAll")
     public String findAll(){
         List<RoomOrder> list = roomOrderService.findAll();
         return JSONUtil
@@ -34,19 +34,19 @@ public class RoomOrderController {
                 .toString();
     }
 
-    @RequestMapping("/roomOrder/add")
+    @RequestMapping("/hotel/roomOrder/add")
     public String addOrder(RoomOrder roomOrder){
         return roomOrderService.addRoomOrder(roomOrder);
     }
 
-    @RequestMapping("/roomOrder/delete")
+    @RequestMapping("/hotel/roomOrder/delete")
     public String deleteOrder(RoomOrder roomOrder){
         int count = roomOrderService.deleteRoomOrderByOrderId(roomOrder);
         int code = count == 1 ? 1 : 0;
         return JSONUtil.generateJsonObjectWithCodeAndObj(code,null).toString();
     }
 
-    @RequestMapping("/roomOrder/update")
+    @RequestMapping("/hotel/roomOrder/update")
     @Transactional
     public String updateOrder(RoomOrder roomOrder){
         int code = roomOrderService.updateOrder(roomOrder);

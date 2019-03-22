@@ -13,7 +13,7 @@
   <sql id="Blob_Column_List" >
     text
   </sql>
-  <select id="SelectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     ,

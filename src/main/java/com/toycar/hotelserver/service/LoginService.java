@@ -2,7 +2,9 @@ package com.toycar.hotelserver.service;
 
 import com.google.gson.JsonObject;
 import com.toycar.hotelserver.manager.TokenManager;
+import com.toycar.hotelserver.mapper.StaffMapper;
 import com.toycar.hotelserver.mapper.UserMapper;
+import com.toycar.hotelserver.pojo.Staff;
 import com.toycar.hotelserver.pojo.User;
 import com.toycar.hotelserver.util.JSONUtil;
 import org.json.JSONObject;
@@ -16,6 +18,9 @@ public class LoginService {
 
     @Autowired(required = false)
     private UserMapper userMapper;
+
+    @Autowired(required = false)
+    private StaffMapper staffMapper;
 
     public String register(User user){
         int code;
@@ -33,6 +38,24 @@ public class LoginService {
         }
         JsonObject object = JSONUtil.generateJsonWithToken(code,user,token);
         return object.toString();
+    }
+
+    public String staffLogin(Staff staff){
+        int code;
+        Staff s = staffMapper.selectByPrimaryKey(staff.getStaffAccount());
+        if (s == null){
+            code = -1;
+        }else if (!s.getStaffPass().equals(staff.getStaffPass())){
+            code = 0;
+        }else {
+            code = 1;
+        }
+        s.setStaffPass("");
+        String token = "";
+        if (code == 1){
+            token = TokenManager.staffLoginGetToken(s);
+        }
+        return JSONUtil.generateJsonWithToken(code,staff,token).toString();
     }
 
     public String login(User user){

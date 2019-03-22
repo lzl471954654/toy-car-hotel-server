@@ -10,7 +10,7 @@
   <sql id="Base_Column_List" >
     exp_id, exp_date, exp_price, exp_type
   </sql>
-  <select id="SelectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _expenditure

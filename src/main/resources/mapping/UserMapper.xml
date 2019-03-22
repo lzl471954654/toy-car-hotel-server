@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     user_account, user_nickname, user_pass, user_phone, user_vip
   </sql>
-  <select id="SelectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from _user

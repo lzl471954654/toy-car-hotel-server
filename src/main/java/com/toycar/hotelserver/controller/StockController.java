@@ -14,7 +14,7 @@ public class StockController {
     @Autowired(required = false)
     StockService stockService;
 
-    @RequestMapping("/stock/add")
+    @RequestMapping("/hotel/staff/stock/add")
     public String addStockTpe(Stock stock){
         int code = stockService.addStockType(stock);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
@@ -25,7 +25,7 @@ public class StockController {
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
     }*/
 
-    @RequestMapping("/stock/inOrOutStock")
+    @RequestMapping("/hotel/staff/stock/inOrOutStock")
     public String inOrOutStock(StockInOutInfo stockInOutInfo){
         int code = stockService.inOrOutStock(stockInOutInfo);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();

@@ -13,22 +13,22 @@ public class RoomController {
     @Autowired(required = false)
     RoomService roomService;
 
-    @RequestMapping("/room/add")
+    @RequestMapping("/hotel/staff/room/add")
     public String addRoom(Room room){
         return  roomService.addRoom(room);
     }
 
-    @RequestMapping("/room/delete")
+    @RequestMapping("/hotel/staff/room/delete")
     public String deleteRoom(Room room){
         return  roomService.deleteRoom(room);
     }
 
-    @RequestMapping("/room/update")
+    @RequestMapping("/hotel/staff/room/update")
     public String updateRoom(Room room){
         return  roomService.updateRoom(room);
     }
 
-    @RequestMapping("/room/findByDate")
+    @RequestMapping("/hotel/room/findByDate")
     public String findRoomByDate(RoomOrder roomOrder){
         System.out.println(roomOrder.getOrderId());
         return roomService.findRoomByDate(roomOrder);
