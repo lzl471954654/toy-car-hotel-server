@@ -69,6 +69,11 @@ public class StockService {
         Date date = new Date(System.currentTimeMillis());
         stockInOutInfo.setStockDate(date);
         stockInOutInfo.setStockId(IDManager.generateStockId(stockInOutInfo));
+        if (stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName())==null){
+            Stock stock1 = new Stock();
+            stock1.setStockName(stockInOutInfo.getStockName());
+            addStockType(stock1);
+        }
         if (stockInOutInfoMapper.insertSelective(stockInOutInfo) == 0){
             throw new IllegalStateException("insert error");
         }
