@@ -52,14 +52,8 @@ public class StockService {
     }
 
     private int updateStock(Stock stock){
-        int n = -3;
-        if (StockManager.lockRoom(stock.getStockName())){
-            try {
-                 n = stockMapper.updateByPrimaryKeySelective(stock);
-            }finally {
-                StockManager.releaseRoom(stock.getStockName());
-            }
-        }
+
+        int n = stockMapper.updateByPrimaryKeySelective(stock);
         return  n;
     }
 
@@ -78,21 +72,28 @@ public class StockService {
             throw new IllegalStateException("insert error");
         }
         int n = -3;
-        Stock stock = stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName());
-        if (stock != null){
-            if (stockInOutInfo.getStockType() == 1){
-                stock.setStockCount(stock.getStockCount() + stockInOutInfo.getStockCount());
-                n = updateStock(stock);
-                return n;
-            }else{
-                int count = stock.getStockCount() - stockInOutInfo.getStockCount();
-                if (n >= 0){
-                    stock.setStockCount(count);
-                    n = updateStock(stock);
-                    return n;
-                }else {
-                    throw new IllegalStateException("Inventory shortage");
+        if (StockManager.lockRoom(stockInOutInfo.getStockName()))
+        {
+            Stock stock = stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName());
+            try{
+                if (stock != null){
+                    if (stockInOutInfo.getStockType() == 1){
+                        stock.setStockCount(stock.getStockCount() + stockInOutInfo.getStockCount());
+                        n = updateStock(stock);
+                        return n;
+                    }else{
+                        int count = stock.getStockCount() - stockInOutInfo.getStockCount();
+                        if (n >= 0){
+                            stock.setStockCount(count);
+                            n = updateStock(stock);
+                            return n;
+                        }else {
+                            throw new IllegalStateException("Inventory shortage");
+                        }
+                    }
                 }
+            }finally {
+                StockManager.releaseRoom(stock.getStockName());
             }
         }
         return n;
