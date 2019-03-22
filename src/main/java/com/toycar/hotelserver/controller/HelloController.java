@@ -18,8 +18,8 @@ public class HelloController {
     @ResponseBody
     @RequestMapping("/hello")
     public List<Stock> findAll(){
-        List<Stock> list = stockMapper.selectAll();
-        return list;
+        throw new IllegalStateException("状态错误");
+        // List<Stock> list = stockMapper.selectAll();
     }
 
     @ResponseBody

@@ -74,8 +74,9 @@ public class StockService {
         int n = -3;
         if (StockManager.lockRoom(stockInOutInfo.getStockName()))
         {
-            Stock stock = stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName());
+            Stock stock = null;
             try{
+                stock  = stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName());
                 if (stock != null){
                     if (stockInOutInfo.getStockType() == 1){
                         stock.setStockCount(stock.getStockCount() + stockInOutInfo.getStockCount());
@@ -83,7 +84,7 @@ public class StockService {
                         return n;
                     }else{
                         int count = stock.getStockCount() - stockInOutInfo.getStockCount();
-                        if (n >= 0){
+                        if (count >= 0){
                             stock.setStockCount(count);
                             n = updateStock(stock);
                             return n;
@@ -93,7 +94,7 @@ public class StockService {
                     }
                 }
             }finally {
-                StockManager.releaseRoom(stock.getStockName());
+                StockManager.releaseRoom(stockInOutInfo.getStockName());
             }
         }
         return n;
