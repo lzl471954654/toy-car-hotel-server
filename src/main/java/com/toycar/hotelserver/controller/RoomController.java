@@ -30,7 +30,6 @@ public class RoomController {
 
     @RequestMapping("/hotel/room/findByDate")
     public String findRoomByDate(RoomOrder roomOrder){
-        System.out.println(roomOrder.getOrderId());
         return roomService.findRoomByDate(roomOrder);
     }
 }

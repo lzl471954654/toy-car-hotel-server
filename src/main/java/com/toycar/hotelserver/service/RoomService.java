@@ -22,7 +22,7 @@ public class RoomService {
 
     public String addRoom(Room room) {
         int n = roomMapper.insertSelective(room);
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n, "");
+        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(n==1?1:-1, "");
         return object.toString();
     }
 
@@ -73,7 +73,7 @@ public class RoomService {
         }else {
             code = -3;
         }
-        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(code, "");
+        JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(code, room);
         return object.toString();
     }
    /* public String findRoomByParameter(String parameter,Integer type) {
@@ -108,7 +108,14 @@ public class RoomService {
                     }
                 }
             }
-            JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(1, roomList);
+            JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(roomList.size()>0?1:-1, roomList);
+            return object.toString();
+        }
+
+
+        public String findRoomById(Room room){
+            Room room1 = roomMapper.selectByPrimaryKey(room.getRoomId());
+            JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(room1!=null?1:-1, room1);
             return object.toString();
         }
 }

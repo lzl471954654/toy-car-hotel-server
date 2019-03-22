@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class StockController {
 
@@ -29,5 +31,11 @@ public class StockController {
     public String inOrOutStock(StockInOutInfo stockInOutInfo){
         int code = stockService.inOrOutStock(stockInOutInfo);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
+    }
+
+    @RequestMapping("/stock/findAll")
+    public String findAll(){
+        List<StockInOutInfo>list = stockService.findAll();
+        return JSONUtil.generateJsonObjectWithCodeAndObj(list.size()>0?-1:1,list).toString();
     }
 }
