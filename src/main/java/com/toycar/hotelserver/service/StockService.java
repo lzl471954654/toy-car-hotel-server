@@ -8,6 +8,7 @@ import com.toycar.hotelserver.pojo.Stock;
 import com.toycar.hotelserver.pojo.StockInOutInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.text.ParseException;
@@ -24,6 +25,7 @@ public class StockService {
 
 
     public int addStockType(Stock stock){
+        stock.setStockCount(0);
         int n = stockMapper.insertSelective(stock);
         return n;
     }
@@ -62,26 +64,32 @@ public class StockService {
     }
 
 
+    @Transactional(rollbackFor = Exception.class)
     public int inOrOutStock(StockInOutInfo stockInOutInfo){
-        SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            stockInOutInfo.setStockDate(stf.parse(stf.format(new Date())));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date date = new Date(System.currentTimeMillis());
+        stockInOutInfo.setStockDate(date);
         stockInOutInfo.setStockId(IDManager.generateStockId(stockInOutInfo));
-        stockInOutInfoMapper.insertSelective(stockInOutInfo);
+        if (stockInOutInfoMapper.insertSelective(stockInOutInfo) == 0){
+            throw new IllegalStateException("insert error");
+        }
         int n = -3;
         Stock stock = stockMapper.selectByPrimaryKey(stockInOutInfo.getStockName());
         if (stock != null){
             if (stockInOutInfo.getStockType() == 1){
                 stock.setStockCount(stock.getStockCount() + stockInOutInfo.getStockCount());
+                n = updateStock(stock);
+                return n;
             }else{
-                stock.setStockCount(stock.getStockCount() - stockInOutInfo.getStockCount());
+                int count = stock.getStockCount() - stockInOutInfo.getStockCount();
+                if (n >= 0){
+                    stock.setStockCount(count);
+                    n = updateStock(stock);
+                    return n;
+                }else {
+                    throw new IllegalStateException("Inventory shortage");
+                }
             }
-            n = updateStock(stock);
         }
         return n;
     }
-
 }

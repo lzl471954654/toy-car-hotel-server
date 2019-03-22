@@ -19,11 +19,11 @@ public class StockController {
         int code = stockService.addStockType(stock);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
     }
-    @RequestMapping("/stock/delete")
+  /*  @RequestMapping("/stock/delete")
     public String deleteStockTpe(Stock stock){
         int code = stockService.deleteStockType(stock);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
-    }
+    }*/
 
     @RequestMapping("/stock/inOrOutStock")
     public String inOrOutStock(StockInOutInfo stockInOutInfo){
