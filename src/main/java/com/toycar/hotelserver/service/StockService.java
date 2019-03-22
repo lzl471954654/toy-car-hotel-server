@@ -14,6 +14,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class StockService {
@@ -27,7 +28,7 @@ public class StockService {
     public int addStockType(Stock stock){
         stock.setStockCount(0);
         int n = stockMapper.insertSelective(stock);
-        return n;
+        return n==1?1:-1;
     }
 
     public int deleteStockType(Stock stock){
@@ -54,7 +55,7 @@ public class StockService {
     private int updateStock(Stock stock){
 
         int n = stockMapper.updateByPrimaryKeySelective(stock);
-        return  n;
+        return  n==1?1:-1;
     }
 
 
@@ -98,5 +99,10 @@ public class StockService {
             }
         }
         return n;
+    }
+
+    public List<StockInOutInfo> findAll(){
+        List<StockInOutInfo>stockInOutInfoList = stockInOutInfoMapper.selectAll();
+        return stockInOutInfoList;
     }
 }
