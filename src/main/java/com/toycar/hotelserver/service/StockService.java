@@ -6,6 +6,7 @@ import com.toycar.hotelserver.mapper.StockInOutInfoMapper;
 import com.toycar.hotelserver.mapper.StockMapper;
 import com.toycar.hotelserver.pojo.Stock;
 import com.toycar.hotelserver.pojo.StockInOutInfo;
+import com.toycar.hotelserver.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +61,7 @@ public class StockService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public int inOrOutStock(StockInOutInfo stockInOutInfo){
+    public String inOrOutStock(StockInOutInfo stockInOutInfo){
         Date date = new Date(System.currentTimeMillis());
         stockInOutInfo.setStockDate(date);
         stockInOutInfo.setStockId(IDManager.generateStockId(stockInOutInfo));
@@ -82,13 +83,13 @@ public class StockService {
                     if (stockInOutInfo.getStockType() == 1){
                         stock.setStockCount(stock.getStockCount() + stockInOutInfo.getStockCount());
                         n = updateStock(stock);
-                        return n;
+                        return  JSONUtil.generateJsonObjectWithCodeAndObj(n, stockInOutInfo).toString();
                     }else{
                         int count = stock.getStockCount() - stockInOutInfo.getStockCount();
                         if (count >= 0){
                             stock.setStockCount(count);
                             n = updateStock(stock);
-                            return n;
+                            return JSONUtil.generateJsonObjectWithCodeAndObj(n, stockInOutInfo).toString();
                         }else {
                             throw new IllegalStateException("Inventory shortage");
                         }
@@ -98,7 +99,7 @@ public class StockService {
                 StockManager.releaseRoom(stockInOutInfo.getStockName());
             }
         }
-        return n;
+        return JSONUtil.generateJsonObjectWithCodeAndObj(n, stockInOutInfo).toString();
     }
 
     public List<StockInOutInfo> findAll(){

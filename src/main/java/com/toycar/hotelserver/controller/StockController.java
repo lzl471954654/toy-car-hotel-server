@@ -19,7 +19,7 @@ public class StockController {
     @RequestMapping("/hotel/staff/stock/add")
     public String addStockTpe(Stock stock){
         int code = stockService.addStockType(stock);
-        return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
+        return JSONUtil.generateJsonObjectWithCodeAndObj(code, stock).toString();
     }
   /*  @RequestMapping("/stock/delete")
     public String deleteStockTpe(Stock stock){
@@ -29,11 +29,11 @@ public class StockController {
 
     @RequestMapping("/hotel/staff/stock/inOrOutStock")
     public String inOrOutStock(StockInOutInfo stockInOutInfo){
-        int code = stockService.inOrOutStock(stockInOutInfo);
-        return JSONUtil.generateJsonObjectWithCodeAndObj(code, null).toString();
+
+        return stockService.inOrOutStock(stockInOutInfo);
     }
 
-    @RequestMapping("/stock/findAll")
+    @RequestMapping("/hotel/staff/stock/findAll")
     public String findAll(){
         List<StockInOutInfo>list = stockService.findAll();
         return JSONUtil.generateJsonObjectWithCodeAndObj(list.size()>0?-1:1,list).toString();
