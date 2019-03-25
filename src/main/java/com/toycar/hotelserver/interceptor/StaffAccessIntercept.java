@@ -16,7 +16,7 @@ public class StaffAccessIntercept implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = request.getParameter("token");
         if (token == null || !TokenManager.checkStaffTokenValid(token)){
-            throw new AccessDenyException("Permission Denied");
+            throw new AccessDenyException("Permission Denied [" + this.getClass().getName() + "]");
         }
         return true;
     }

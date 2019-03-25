@@ -6,11 +6,14 @@ import com.toycar.hotelserver.pojo.Staff;
 import com.toycar.hotelserver.pojo.User;
 
 import java.util.Map;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TokenManager {
 
     private static Map<String, Token> tokenMap = new ConcurrentHashMap<>();
+
+
 
     public static String userLoginGetToken(User user){
         Token token = new Token(user);
@@ -32,7 +35,7 @@ public class TokenManager {
         if (t.isValid(token) && !t.isStaff()){
             return true;
         }else {
-            tokenMap.remove(token);
+            //tokenMap.remove(token);
             return false;
         }
     }
@@ -45,9 +48,13 @@ public class TokenManager {
         if (t.isValid(token) && t.isStaff()){
             return true;
         }else {
-            tokenMap.remove(token);
+            //tokenMap.remove(token);
             return false;
         }
+    }
+
+    public static void releaseToken(String token){
+        tokenMap.remove(token);
     }
 
 }

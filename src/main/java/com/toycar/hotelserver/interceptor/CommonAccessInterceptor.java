@@ -19,7 +19,7 @@ public class CommonAccessInterceptor implements HandlerInterceptor {
         if (TokenManager.checkUserTokenValid(token) || TokenManager.checkStaffTokenValid(token)){
             return true;
         }
-        throw new AccessDenyException("Permission Denied");
+        throw new AccessDenyException("Permission Denied ["+this.getClass().getName()+"]");
     }
 
     @Override
