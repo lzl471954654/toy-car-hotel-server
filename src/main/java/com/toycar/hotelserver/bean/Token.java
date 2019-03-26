@@ -33,6 +33,8 @@ public class Token {
                 + staff.getStaffPermission()
                 + staff.getStaffSalary()
                 + staff.getStaffPass()
+                + System.nanoTime()
+                + Thread.currentThread().getId()
                 + "toyCar";
         token = DigestUtils.sha1Hex(message);
     }
@@ -45,6 +47,8 @@ public class Token {
                 + user.getUserPhone()
                 + user.getUserVip()
                 + user.getUserPass()
+                + System.nanoTime()
+                + Thread.currentThread().getId()
                 + "toyCar";
         token = DigestUtils.sha1Hex(message);
     }

@@ -55,7 +55,7 @@ public class LoginService {
         if (code == 1){
             token = TokenManager.staffLoginGetToken(s);
         }
-        return JSONUtil.generateJsonWithToken(code,staff,token).toString();
+        return JSONUtil.generateJsonWithToken(code,s,token).toString();
     }
 
     public String login(User user){

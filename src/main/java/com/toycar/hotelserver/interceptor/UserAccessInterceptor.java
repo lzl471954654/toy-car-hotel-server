@@ -14,7 +14,7 @@ public class UserAccessInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = request.getParameter("token");
         if (token == null || !TokenManager.checkUserTokenValid(token)){
-            throw new AccessDenyException("Permission Denied");
+            throw new AccessDenyException("Permission Denied ["+this.getClass().getName()+"]");
         }
         return true;
     }

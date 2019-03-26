@@ -26,7 +26,7 @@ public class RoomOrderController {
                 .toString();
     }
 
-    @RequestMapping("/roomOrder/findById")
+    @RequestMapping("hotel/roomOrder/findById")
     public String findById(RoomOrder roomOrder){
         RoomOrder order = roomOrderService.findRoomOrderById(roomOrder);
         return JSONUtil

@@ -19,6 +19,8 @@ public class IDManager {
                 + roomOrder.getStart().toString()
                 + roomOrder.getEnd().toString()
                 + roomOrder.getOrderPrice()
+                + System.nanoTime()
+                + Thread.currentThread().getId()
                 + "toyCar";
 
         return DigestUtils.sha1Hex(message);
@@ -30,6 +32,8 @@ public class IDManager {
                 + serviceOrder.getServiceInfo()
                 + serviceOrder.getServicePrice()
                 + serviceOrder.getServiceType()
+                + System.nanoTime()
+                + Thread.currentThread().getId()
                 + "toyCar";
         return DigestUtils.sha1Hex(message);
     }
