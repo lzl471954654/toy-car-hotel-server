@@ -14,8 +14,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String[] commonEx = {"/hotel/login","/hotel/staffLogin","/hotel/register"};
-        registry.addInterceptor(new StaffAccessIntercept()).addPathPatterns("/hotel/staff/**");
+       /* registry.addInterceptor(new StaffAccessIntercept()).addPathPatterns("/hotel/staff/**");
         registry.addInterceptor(new UserAccessInterceptor()).addPathPatterns("/hotel/user/**");
-        registry.addInterceptor(new CommonAccessInterceptor()).addPathPatterns("/hotel/**").excludePathPatterns(commonEx);
+        registry.addInterceptor(new CommonAccessInterceptor()).addPathPatterns("/hotel/**").excludePathPatterns(commonEx);*/
     }
 }

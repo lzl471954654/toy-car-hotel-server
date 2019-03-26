@@ -2,6 +2,7 @@ package com.toycar.hotelserver.service;
 
 import com.toycar.hotelserver.manager.IDManager;
 import com.toycar.hotelserver.manager.RoomManager;
+import com.toycar.hotelserver.mapper.CommentsMapper;
 import com.toycar.hotelserver.mapper.RoomOrderMapper;
 import com.toycar.hotelserver.pojo.RoomOrder;
 import com.toycar.hotelserver.util.JSONUtil;
@@ -16,6 +17,9 @@ public class RoomOrderService {
 
     @Autowired(required = false)
     private RoomOrderMapper mapper;
+
+    @Autowired(required = false)
+    private CommentsMapper commentsMapper;
 
     public RoomOrder findRoomOrderById(RoomOrder roomOrder){
         return mapper.selectByPrimaryKey(roomOrder.getOrderId());
@@ -58,6 +62,7 @@ public class RoomOrderService {
     }
 
     public int deleteRoomOrderByOrderId(RoomOrder roomOrder){
+        commentsMapper.deleteByPrimaryKey(roomOrder.getOrderId());
         return mapper.deleteByPrimaryKey(roomOrder.getOrderId());
     }
 
