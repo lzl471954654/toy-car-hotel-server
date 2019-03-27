@@ -118,4 +118,9 @@ public class RoomService {
             JsonObject object = JSONUtil.generateJsonObjectWithCodeAndObj(room1!=null?1:-1, room1);
             return object.toString();
         }
+
+        public String findAll(){
+            List<Room> roomList = roomMapper.selectAll();
+            return JSONUtil.generateJsonObjectWithCodeAndObj(roomList!=null?1:0,roomList).toString();
+        }
 }

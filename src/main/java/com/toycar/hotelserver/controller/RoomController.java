@@ -32,4 +32,15 @@ public class RoomController {
     public String findRoomByDate(RoomOrder roomOrder){
         return roomService.findRoomByDate(roomOrder);
     }
+
+    @RequestMapping("/hotel/staff/room/findAll")
+    public String findAll(){
+        return roomService.findAll();
+    }
+    @RequestMapping("/hotel/room/findById")
+    public String findById(String roomId){
+        Room room = new Room();
+        room.setRoomId(roomId);
+        return roomService.findRoomById(room);
+    }
 }

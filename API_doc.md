@@ -473,6 +473,42 @@ yanglei.duckdns.org:9999
         
 ## Room API
 
+- ### findAll
+
+    url ： /hotel/staff/room/findAll
+    
+    参数 ：
+    
+       无
+       
+    例子 ：
+        
+        /hotel/staff/room/findAll
+    
+    返回值 ：
+        
+        {"code":1,"data":[{"roomId":"1001","roomFloor":2,"roomType":1,"roomPrice":199,"roomStatus":1},{"roomId":"1002","roomFloor":1,"roomType":1,"roomPrice":150,"roomStatus":0},{"roomId":"1003","roomFloor":1,"roomType":1,"roomPrice":120,"roomStatus":0},{"roomId":"1004","roomFloor":1,"roomType":2,"roomPrice":130,"roomStatus":1},{"roomId":"1005","roomFloor":2,"roomType":1,"roomPrice":200,"roomStatus":2},{"roomId":"1006","roomFloor":2,"roomType":2,"roomPrice":150,"roomStatus":1},{"roomId":"1007","roomFloor":2,"roomType":1,"roomPrice":150,"roomStatus":1},{"roomId":"1010","roomFloor":2,"roomType":1,"roomPrice":199,"roomStatus":1}]}
+        
+    描述 ：
+    
+    管理员可以查看所有房间信息
+    
+    
+- ### findById
+    
+    url ： /hotel/room/findById
+    
+    例子 ：
+        
+        /hotel/room/findById?roomId=1001
+        
+    返回值 ：
+    
+        {"code":1,"data":{"roomId":"1001","roomFloor":2,"roomType":1,"roomPrice":199,"roomStatus":1}}
+        
+    描述 ：
+    根据roomId查找房间
+    
 - ### findByDate
 
     url ： /hotel/room/findByDate
@@ -622,3 +658,62 @@ yanglei.duckdns.org:9999
     
         返回所有出入库记录
         
+## Comments API
+
+- ### findAll
+
+    url ： /hotel/comments/findAll
+    
+    参数 ：
+    
+        无
+        
+    例子 ：
+    
+        /hotel/comments/findAll
+        
+    返回值 ：
+    
+        {"code":1,"data":[{"orderId":"0dd9cfd07a039486e964b287703af69863592a3e","text":"123"}]}
+        
+    描述 ：
+    返回所有评论
+    
+- ### add
+
+    url ： /hotel/comments/add
+    
+    参数 ：
+    
+        orderId，text
+        
+    例子 ：
+    
+        /hotel/comments/add?orderId=4bd51cf6a07f8b3e038eeb40a45e662cd5a9f520&text=1235456
+        
+    返回值 ：
+    
+        {"code":1,"data":{"orderId":"4bd51cf6a07f8b3e038eeb40a45e662cd5a9f520","text":"User :lzl&1235456"}}
+        
+    描述 ：
+    根据订单编号填写评论信息
+    
+- ### delete
+
+    url ： /hotel/staff/comments/delete
+    
+    参数 ：
+        
+        orderId
+        
+    例子 ：
+    
+    /hotel/staff/comments/delete?orderId=4bd51cf6a07f8b3e038eeb40a45e662cd5a9f520
+    
+    返回值 ：
+    
+        {"code":1,"data":null}
+        
+    描述 ：
+    
+    根据orderId删除评论
