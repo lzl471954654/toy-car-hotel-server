@@ -47,7 +47,6 @@ public class RoomOrderController {
     }
 
     @RequestMapping("/hotel/roomOrder/update")
-    @Transactional
     public String updateOrder(RoomOrder roomOrder){
         int code = roomOrderService.updateOrder(roomOrder);
         return JSONUtil.generateJsonObjectWithCodeAndObj(code,roomOrder).toString();

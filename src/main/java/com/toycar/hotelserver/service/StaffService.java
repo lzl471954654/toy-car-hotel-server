@@ -5,6 +5,7 @@ import com.toycar.hotelserver.mapper.StaffMapper;
 import com.toycar.hotelserver.pojo.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class StaffService {
     @Autowired(required = false)
     private StaffMapper staffMapper;
 
+    @Transactional
     public int updateStaff(Staff staff){
         Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
         int code = -1;

@@ -16,11 +16,15 @@
   <select id="checkStartTimeAndEndTimeContainsOrder" resultMap="BaseResultMap" parameterType="com.toycar.hotelserver.pojo.RoomOrder">
     select * from _room_order
     where
+    (
     start between #{start,jdbcType=DATE} and #{end,jdbcType=DATE}
     or
     end between #{start,jdbcType=DATE} and #{end,jdbcType=DATE}
     or
     start <![CDATA[ <= ]]> #{start,jdbcType=DATE} and end <![CDATA[ >= ]]> #{end,jdbcType=DATE}
+    )
+    and
+    room_id = #{roomId,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select

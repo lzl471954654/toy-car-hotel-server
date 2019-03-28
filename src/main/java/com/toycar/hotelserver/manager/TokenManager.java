@@ -13,16 +13,29 @@ public class TokenManager {
 
     private static Map<String, Token> tokenMap = new ConcurrentHashMap<>();
 
+    private static Map<String,String> userTokenMap = new ConcurrentHashMap<>();
 
 
     public static String userLoginGetToken(User user){
         Token token = new Token(user);
+        String userAccount = user.getUserAccount() + "-user";
+        String oldToken = userTokenMap.get(userAccount);
+        if (oldToken != null){
+            releaseToken(oldToken);
+        }
+        userTokenMap.put(userAccount,token.getToken());
         tokenMap.put(token.getToken(),token);
         return token.getToken();
     }
 
     public static String staffLoginGetToken(Staff staff){
         Token token = new Token(staff);
+        String staffAccount = staff.getStaffAccount() + "-staff";
+        String oldToken = userTokenMap.get(staffAccount);
+        if (oldToken != null){
+            releaseToken(oldToken);
+        }
+        userTokenMap.put(staffAccount,token.getToken());
         tokenMap.put(token.getToken(),token);
         return token.getToken();
     }

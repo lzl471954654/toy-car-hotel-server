@@ -8,6 +8,7 @@ import com.toycar.hotelserver.pojo.RoomOrder;
 import com.toycar.hotelserver.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class RoomOrderService {
         return mapper.selectAll();
     }
 
+    @Transactional
     public int updateOrder(RoomOrder roomOrder){
         Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
         int code;

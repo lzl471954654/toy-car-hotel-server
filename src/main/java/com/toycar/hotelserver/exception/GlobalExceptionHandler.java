@@ -27,5 +27,6 @@ public class GlobalExceptionHandler {
         object.addProperty("message",e.getMessage()+"\t"+e.getClass().getName());
         response.setContentType("text/json;charset=UTF-8");
         response.getWriter().println(object.toString());
+        e.printStackTrace();
     }
 }
